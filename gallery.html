@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Utkarsh Gupta</title>
+    <link rel="stylesheet" href="./styles/style.css" />
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <nav>
+          <a href="index.html"
+            ><img class="logo" src="./images/logo.png" alt="logo"
+          /></a>
+          <ul>
+            <li><a href="aboutme.html">About Me</a></li>
+            <li><a href="myWork.html">My Work</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="contact.html">Contact Me</a></li>
+          </ul>
+        </nav>
+      </header>
+      <div class="bb"></div>
+      <main>
+        <div class="full-img" id="fullImgBox">
+          <img src="images/1.jpg" id="fullImg" />
+          <span id="prevImg" onclick="showNext('prev')">&#60;</span>
+          <span id="closeFullImgBox" onclick="hideFullImg()">X</span>
+          <span id="nextImg" onclick="showNext('next')">&#62;</span>
+        </div>
+
+        <div class="img-gallery">
+          <img src="images/1.jpg" onclick="showFullImg(this.src)" />
+          <img src="images/2.jpg" onclick="showFullImg(this.src)" />
+          <img src="images/3.jpg" onclick="showFullImg(this.src)" />
+          <img src="images/4.jpg" onclick="showFullImg(this.src)" />
+          <img src="images/5.jpg" onclick="showFullImg(this.src)" />
+          <img src="images/6.jpg" onclick="showFullImg(this.src)" />
+          <img src="images/7.jpg" onclick="showFullImg(this.src)" />
+          <img src="images/8.jpg" onclick="showFullImg(this.src)" />
+        </div>
+
+        <script>
+          function byId(id) {
+            return document.getElementById(id);
+          }
+          const fullImgBox = byId("fullImgBox");
+          const fullImg = byId("fullImg");
+
+          function showFullImg(fpath) {
+            fullImg["src"] = fpath;
+            fullImgBox.style.display = "flex";
+          }
+          function hideFullImg() {
+            fullImgBox.style.display = "none";
+          }
+          function prevImg() {
+            console.log("imgSrc " + fullImg.src);
+            const spos = fullImg.src.lastIndexOf("/");
+            console.log(spos);
+          }
+          function showNext(dir) {
+            const imgSrc = fullImg.src;
+            console.log("Current filePath " + imgSrc);
+            const beg = imgSrc.lastIndexOf("/");
+            const end = imgSrc.lastIndexOf(".");
+            //console.log(imgSrc.substring(beg+1, end));
+            var curImgIdx = parseInt(imgSrc.substring(beg + 1, end));
+            switch (dir) {
+              case "prev":
+                curImgIdx = curImgIdx === 1 ? 8 : curImgIdx - 1;
+                break;
+              case "next":
+                curImgIdx = curImgIdx === 8 ? 1 : curImgIdx + 1;
+                break;
+            }
+            const finalSrc =
+              imgSrc.substring(0, beg + 1) +
+              curImgIdx +
+              imgSrc.substring(end, imgSrc.length);
+            console.log("Next filePath " + finalSrc);
+            //fullImg["src"] = finalSrc;
+            fullImg.src = finalSrc;
+          }
+        </script>
+      </main>
+    </div>
+  </body>
+</html>
